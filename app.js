@@ -43,25 +43,12 @@ app.get('/posts/:post',function(req,res){
   const PostTitle = lodash.lowerCase(req.params.post);
   posts.forEach(function(post){
     const title = lodash.lowerCase(post.title);
-    console.log(PostTitle);
-    console.log(title);
     if(title === PostTitle)
     {
       res.render('post',{title: post.title,post: post.post })
     }
   })
 });
-
-
-
-
-
-
-
-
-
-
-
 
 app.listen(3000, function() {
   console.log("Server started on port 3000");
