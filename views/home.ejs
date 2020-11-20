@@ -6,7 +6,7 @@
   <h1><%= p.title%></h1>
   <br>
   <%= p.post.slice(0,100)+" ... "%>
-  <a href="/posts/<%= p.title%>">Read More</a>
+  <a href="/posts/<%= p._id%>">Read More</a>
   <br>
   <% }) %>
 <%- include('Partials/footer') -%>
