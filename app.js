@@ -1,64 +1,81 @@
+// requiring things we require for app to run
+
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const posts = []
 const lodash = require('lodash');
 const mongoose = require('mongoose');
+
+// connecting to mongodb
 mongoose.connect('mongodb://localhost:27017/blogDB', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
 
+const db = mongoose.connection;
+// this will print errors if there are any.
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log("We're Connected to Database");
+});
+
+// creating a blog Schema for postss
 const blogSchema = mongoose.Schema({
   title: String,
   post: String,
 });
 
+// creating a default Schema for default data
 const defaultSchema = mongoose.Schema({
   home: String,
   about: String,
   contact: String
 });
 
+// making a collection through monogoose.
 const Blog = mongoose.model('Blog', blogSchema);
 const Default = mongoose.model('default', defaultSchema);
 
-// const homeStartingContent = "Lacus vel facilisis volutpat est velit egestas dui id ornare. Semper auctor neque vitae tempus quam. Sit amet cursus sit amet dictum sit amet justo. Viverra tellus in hac habitasse. Imperdiet proin fermentum leo vel orci porta. Donec ultrices tincidunt arcu non sodales neque sodales ut. Mattis molestie a iaculis at erat pellentesque adipiscing. Magnis dis parturient montes nascetur ridiculus mus mauris vitae ultricies. Adipiscing elit ut aliquam purus sit amet luctus venenatis lectus. Ultrices vitae auctor eu augue ut lectus arcu bibendum at. Odio euismod lacinia at quis risus sed vulputate odio ut. Cursus mattis molestie a iaculis at erat pellentesque adipiscing.";
-//
-// const aboutContent = "Hac habitasse platea dictumst vestibulum rhoncus est pellentesque. Dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Non diam phasellus vestibulum lorem sed. Platea dictumst quisque sagittis purus sit. Egestas sed sed risus pretium quam vulputate dignissim suspendisse. Mauris in aliquam sem fringilla. Semper risus in hendrerit gravida rutrum quisque non tellus orci. Amet massa vitae tortor condimentum lacinia quis vel eros. Enim ut tellus elementum sagittis vitae. Mauris ultrices eros in cursus turpis massa tincidunt dui.";
-//
-// const contactContent = "Scelerisque eleifend donec pretium vulputate sapien. Rhoncus urna neque viverra justo nec ultrices. Arcu dui vivamus arcu felis bibendum. Consectetur adipiscing elit duis tristique. Risus viverra adipiscing at in tellus integer feugiat. Sapien nec sagittis aliquam malesuada bibendum arcu vitae. Consequat interdum varius sit amet mattis. Iaculis nunc sed augue lacus. Interdum posuere lorem ipsum dolor sit amet consectetur adipiscing elit. Pulvinar elementum integer enim neque. Ultrices gravida dictum fusce ut placerat orci nulla. Mauris in aliquam sem fringilla ut morbi tincidunt. Tortor posuere ac ut consequat semper viverra nam libero.";
+/*  Now for the app to work we'll have to first start mongod & create a blogDB & in that DB,
+    create 2 collections namely defaults & blogs (additional 's' is because mongoose adds a 's'
+    at the end of a collection that it makes i.e. making it in plural form )
 
+    so in defaults add one document & same in blogs,
 
+    after that run the app.
+ */
 
+// making app
 const app = express();
 
-//static - one time call
-// const def= new Default({
-//   home:homeStartingContent,
-//   about:aboutContent,
-//   contact:contactContent
-// });
-// def.save();
-
+// configuring ejs template language
 app.set('view engine', 'ejs');
 
+// configuring body-parser module to read data
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+
+// marking the public folder as static so that css/js files can be used.
 app.use(express.static("public"));
 
+//home route get request
 app.get('/', function(req, res) {
+
+  //fetching data from the collection we made.
   Default.findOne(function(err, content) {
     if (err) {
       console.log(err);
     }
-
+//fetching data from the collection we made.
     Blog.find(function(err, blogs) {
       if (err) {
         console.log(err);
       }
       else{
+        // case where no errors are found & data will be added into a JS object
+        // so that we can pass it around in the ejs files
         res.render('home', {
           HomeContent: content.home,
           Posts: blogs
@@ -68,7 +85,9 @@ app.get('/', function(req, res) {
   });
 });
 
+// get request for about section
 app.get('/about', function(req, res) {
+  //fetching data from the collection we made.
   Default.findOne(function(err, content) {
     if (!err) {
       res.render('about', {
@@ -78,6 +97,7 @@ app.get('/about', function(req, res) {
   });
 });
 
+// get request for the contact page
 app.get('/contact', function(req, res) {
   Default.findOne(function(err, content) {
     if (!err) {
@@ -89,21 +109,28 @@ app.get('/contact', function(req, res) {
 
 });
 
+// to get the compose page.
 app.get('/compose', function(req, res) {
   res.render('compose');
 });
 
+// for handaling post requests from compose
 app.post('/compose', function(req, res) {
+  // getting data from html
   const BlogTitle = req.body.BlogTitle;
   const BlogPost = req.body.BlogPost;
+  // making a js object so that we can save it in DB
   const post = new Blog({
     title: BlogTitle,
     post: BlogPost,
   });
+  // saving into Database
   post.save();
+  // redirecting to home page.
   res.redirect('/');
 })
 
+// for getting particular blog
 app.get('/posts/:id', function(req, res) {
   const PostID = req.params.id;
   console.log(PostID);
@@ -120,6 +147,7 @@ app.get('/posts/:id', function(req, res) {
   });
 });
 
+// to listen on the domain
 app.listen(3000, function() {
   console.log("Server started on port 3000");
 });

@@ -13,8 +13,7 @@
     "ejs": "^2.6.1",
     "express": "^4.17.1",
     "lodash": "^4.17.20",
-    "mongoose": "^5.10.15",
-    "moongoose": "0.0.5"
+    "mongoose": "^5.12.5"
   },
   "devDependencies": {
     "nodemon": "^2.0.6"
