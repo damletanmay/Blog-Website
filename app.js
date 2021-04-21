@@ -6,9 +6,11 @@ const ejs = require("ejs");
 const posts = []
 const lodash = require('lodash');
 const mongoose = require('mongoose');
+const port = process.env.PORT || 3000;
 
+// mongodb://localhost:27017
 // connecting to mongodb
-mongoose.connect('mongodb://localhost:27017/blogDB', {
+mongoose.connect('mongodb+srv://Tanmay:tanmay123@cluster0.ztdx8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority/blogDB', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
@@ -57,11 +59,27 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
+// adding default data
+const post = new Blog({
+  title: 'Clark Kent',
+  post: 'Clark Kent Works at Daily Planet!',
+});
+post.save();
+
+const def = new Default({
+  home: 'Welcome To Daily Planet',
+  about: 'A Simple Node-js App For Blog Website!',
+  contact: 'Contact us at- tanmay12x3@yahoo.com'
+})
+def.save();
+
+
 // marking the public folder as static so that css/js files can be used.
 app.use(express.static("public"));
 
 //home route get request
 app.get('/', function(req, res) {
+
 
   //fetching data from the collection we made.
   Default.findOne(function(err, content) {
@@ -148,6 +166,6 @@ app.get('/posts/:id', function(req, res) {
 });
 
 // to listen on the domain
-app.listen( process.env.PORT || 3000, function() {
+app.listen(port, function() {
   console.log("Server started!");
 });
