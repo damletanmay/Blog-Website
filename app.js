@@ -17,7 +17,7 @@ const db = mongoose.connection;
 // this will print errors if there are any.
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
-  console.log("We're Connected to Database");
+  console.log("We're Connected to DB");
 });
 
 // creating a blog Schema for postss
@@ -148,6 +148,6 @@ app.get('/posts/:id', function(req, res) {
 });
 
 // to listen on the domain
-app.listen(3000, function() {
-  console.log("Server started on port 3000");
+app.listen( process.env.PORT || 3000, function() {
+  console.log("Server started!");
 });
