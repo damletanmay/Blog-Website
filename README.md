@@ -17,8 +17,6 @@ This app is hosted on Heroku.
 
 This a very simple app, it has only 2 tasks, to read data from DB & display old blog-posts or create new ones.
 
-Comments are added wherever necessary. 
-
 ## How to Access This Website
 
 The Website is hosted live [here](https://node-js-blog-website.herokuapp.com)
@@ -35,6 +33,7 @@ No hyper link to compose page is present on the website for the time being becau
 3. Server Hosting - ```Node Js```
 4. Database -  ```MongoDB```
 
+Comments are added wherever necessary so that the code can be easily understood.
 
 ## Requirements
 
