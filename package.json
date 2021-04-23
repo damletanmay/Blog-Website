@@ -4,7 +4,7 @@
   "description": "A blog Website",
   "main": "app.js",
   "scripts": {
-    "start":"node app.js",
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Tanmay Damle",
@@ -20,7 +20,7 @@
     "mongoose": "^5.12.5"
   },
   "devDependencies": {
-    "nodemon": "^2.0.6"
+    "nodemon": "^2.0.7"
   },
   "repository": {
     "type": "git",
