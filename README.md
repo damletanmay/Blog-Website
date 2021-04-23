@@ -1,4 +1,4 @@
-# Blog Website
+# The Daily Planet
 
 I Made This Website While Learning...
 
