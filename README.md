@@ -1,6 +1,6 @@
 # The Daily Planet
 
-I Made This Website While Learning...
+I Made This Website While Learning Node Js, Express Js & MongoDB
 
 ## Hosting
 
