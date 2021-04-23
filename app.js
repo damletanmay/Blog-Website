@@ -59,8 +59,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-// adding default data only once
-/*
+// adding default data
 const post = new Blog({
   title: 'Clark Kent',
   post: 'Clark Kent Works at Daily Planet!',
@@ -73,7 +72,7 @@ const def = new Default({
   contact: 'Contact us at- tanmay12x3@yahoo.com'
 })
 def.save();
-*/
+
 
 // marking the public folder as static so that css/js files can be used.
 app.use(express.static("public"));

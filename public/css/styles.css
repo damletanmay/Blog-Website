@@ -19,23 +19,6 @@
 	padding-bottom: 60px;
 }
 
-.footer-home{
-    position:auto;
-	text-align: center;
-	height: 80px;
-	padding:20px;
-	background-color: #1abc9c;
-	bottom:0;
-}
-
-
-.footer-home p {
-	margin-top: 15px;
-	font-size: 12px;
-  color: #fff;
-}
-
-
 .footer {
 	position: absolute;
 	text-align: center;
