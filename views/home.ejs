@@ -1,12 +1,24 @@
 <%- include('Partials/header') -%>
+<div class="container">
 <h1>HOME</h1>
 <p><%= HomeContent %></p>
-<div class="container">
+
+<div class="container container-fluid">
+<h2>Blogs</h2>
   <% Posts.forEach(function(p){%>
   <h1><%= p.title%></h1>
   <br>
   <%= p.post.slice(0,100)+" ... "%>
   <a href="/posts/<%= p._id%>">Read More</a>
   <br>
-  <% }) %>
-<%- include('Partials/footer') -%>
+  <% }) %>	
+
+ </div>
+ </div>
+<footer class="footer-home">
+  <p>Made with ❤️ by Tanmay Damle</p>
+</footer>
+</body>
+</html>
+
+
