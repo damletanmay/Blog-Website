@@ -10,7 +10,12 @@ const port = process.env.PORT || 3000;
 
 // mongodb://localhost:27017
 // connecting to mongodb
-mongoose.connect('mongodb+srv://Tanmay:tanmay123@cluster0.ztdx8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority/blogDB', {
+
+// mongoose.connect('mongodb+srv://Tanmay:tanmay123@cluster0.ztdx8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority/blogDB', {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true
+// });
+mongoose.connect('mongodb+srv://Tanmay:tanmay123@cluster0.ztdx8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
